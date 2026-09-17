@@ -1,0 +1,35 @@
+{
+  "name": "jiege-reader",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5173 --strictPort",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 4173 --strictPort",
+    "typecheck": "tsc -b",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "test:stress": "playwright test --config playwright.stress.config.ts",
+    "verify:docs": "powershell -NoProfile -ExecutionPolicy Bypass -File tests/verify-all.ps1",
+    "check": "npm run typecheck && npm test && npm run test:e2e && npm run build && npm run verify:docs"
+  },
+  "dependencies": {
+    "@tanstack/react-virtual": "^3.14.13",
+    "idb": "^8.0.3",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^22.20.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "fake-indexeddb": "^6.2.5",
+    "iconv-lite": "^0.7.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.0",
+    "vitest": "^5.0.1"
+  }
+}
