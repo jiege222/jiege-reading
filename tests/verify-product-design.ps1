@@ -3,7 +3,7 @@ $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $docsRoot = Join-Path $projectRoot 'docs'
 $documents = @(Get-ChildItem -LiteralPath $docsRoot -Filter '*.md' -File)
-$design = @($documents | Where-Object { $_.Name -like '*MVP.md' })
+$design = @($documents | Where-Object { $_.Name -match '^\u4ea7\u54c1\u8bbe\u8ba1-MVP\.md$' })
 if ($design.Count -ne 1) {
     throw 'Expected one MVP product design document.'
 }

@@ -12,7 +12,7 @@ from docx.shared import Cm, Pt, RGBColor
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "docx" / "技术方案-MVP.md"
+SOURCE = ROOT / "docs" / "技术方案-MVP.md"
 OUTPUT = SOURCE.with_suffix(".docx")
 
 

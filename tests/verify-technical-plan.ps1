@@ -1,8 +1,11 @@
 $ErrorActionPreference = 'Stop'
 
 $projectRoot = Split-Path -Parent $PSScriptRoot
-$docRoot = Join-Path $projectRoot 'docx'
-$sources = @(Get-ChildItem -LiteralPath $docRoot -Filter '*.md' -File)
+$docRoot = Join-Path $projectRoot 'docs'
+if (Test-Path -LiteralPath (Join-Path $projectRoot 'docx')) {
+    throw 'The obsolete docx directory must be removed; documents belong in docs.'
+}
+$sources = @(Get-ChildItem -LiteralPath $docRoot -Filter '*.md' -File | Where-Object { $_.Name -match '^\u6280\u672f\u65b9\u6848-MVP\.md$' })
 if ($sources.Count -ne 1) {
     throw 'Expected one technical plan Markdown source.'
 }
