@@ -25,7 +25,8 @@ def set_font(style, size, color=None):
 
 
 def build():
-    source_bytes = SOURCE.read_bytes()
+    # Git may check Markdown out as CRLF on Windows; line endings are not content.
+    source_bytes = SOURCE.read_bytes().replace(b"\r\n", b"\n")
     lines = source_bytes.decode("utf-8").splitlines()
     document = Document()
     section = document.sections[0]

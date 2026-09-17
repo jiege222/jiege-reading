@@ -58,7 +58,11 @@ try {
     }
 
     # Prevent a stale binary document after editing the reviewable source.
-    $hash = (Get-FileHash -LiteralPath $source.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+    # Match the generator's line-ending normalization for Windows Git checkouts.
+    $normalizedBytes = [System.Text.Encoding]::UTF8.GetBytes($sourceText.Replace("`r`n", "`n"))
+    $hasher = [System.Security.Cryptography.SHA256]::Create()
+    try { $hash = ([System.BitConverter]::ToString($hasher.ComputeHash($normalizedBytes))).Replace('-', '').ToLowerInvariant() }
+    finally { $hasher.Dispose() }
     if (-not $xmlFiles['docProps/core.xml'].OuterXml.Contains("source-sha256:$hash")) {
         throw 'The Word document is stale; regenerate it from the Markdown source.'
     }
